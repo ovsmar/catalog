@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <main>
+        <div id="trieParTaille" class="flex">
+            <div class="btn">taille</div>
+        </div>
+        <div id="TrieParColoer" class="flex">
+            <div class="btn">color</div>
+        </div>
+        <div id="produts" class="flex">
+
+        </div>
+        </div>
+    </main>
+    <script src="data.js"></script>
+
+    <script>
+        const divProduts = document.getElementById('produts')
+
+        function affichage(tableuTshirt) {
+            divProduts.innerHTML = "";
+            for (const tshirt of tableuTshirt) {
+
+
+                let html =
+                    `
+                    <div class="produitflex">
+                        <h2 class="nom">${tshirt.nom}</h2>
+                        <img src="${tshirt.image}" alt="tshirtrouge" />
+                        <div class="attribut taille">${tshirt.taille}</div>
+                        <div class="attribut couleur">${tshirt.color}</div>
+                    </div>
+                    ` ;
+                divProduts.innerHTML += html;
+            }
+        }
+
+        affichage(tshirt);
+
+        //filtre taille
+        function creerFiltreTaille(tailles) {
+            //boucle sur toutes les tailles
+            for (const taille of tailles) {
+                //creer un btn
+                let btn = document.createElement("button");
+                btn.classList.add("btn");
+                btn.setAttribute("taille", taille);
+                btn.innerText = taille
+                //eventlistener qui appelle le bon filtre
+                btn.addEventListener("click", function (e) {
+                    let tailleVoulue = e.target.getAttribute("taille");
+                    //avec le bon resultat du filtre
+                    //je refais l'affichage
+                    affichage(filterTaille(tshirt, tailleVoulue));
+                });
+                document.getElementById("trieParTaille").appendChild(btn);
+            }
+        }
+        creerFiltreTaille(size);
+
+        function creerFiltreColor(colors) {
+
+            for (const color of colors) {
+
+                let btn = document.createElement("button");
+                btn.classList.add("btn");
+                btn.setAttribute("color", color);
+                btn.innerText = color
+
+                btn.addEventListener("click", function (e) {
+                    let colorVoulue = e.target.getAttribute("color");
+                    affichage(filterColour(tshirt, colorVoulue));
+                });
+                console.log(btn)
+                document.getElementById("TrieParColoer").appendChild(btn);
+            }
+        }
+        creerFiltreColor(color);
+
+    </script>
+</body>
+
+</html>
